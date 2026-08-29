@@ -23,3 +23,52 @@ module tb_top;
         $finish;
     end
 endmodule
+
+
+
+
+
+//with checker
+module tb();
+  
+  logic a,b,sel,y;
+  logic expected;
+  
+  mux_2x1 dut (
+    .a(a),
+    .b(b),
+    .sel(sel),
+    .y(y)
+  );
+  
+  initial begin
+    
+    sel=0;a=0;b=0;
+    $display("y=%b" , y);
+    #10;
+    if(sel == 0)
+      assign expected = a;
+    else 
+     assign expected = b;
+    
+    if(y == expected)
+      $display ("PASS" );
+    else
+      $display("Failed");
+    
+    
+    sel=1;a=0;b=1;
+    #10;
+    $display("y=%b" , y);
+    if(sel == 0)
+      assign expected = a;
+    else 
+     assign expected = b;
+    
+    if(y == expected)
+      $display ("PASS" );
+    else
+      $display("Failed");
+    
+  end
+endmodule
